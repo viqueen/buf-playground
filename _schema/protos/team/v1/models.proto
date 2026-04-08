@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package team.v1;
+
+import "google/protobuf/timestamp.proto";
+import "team/v1/enums.proto";
+import "user/v1/refs.proto";
+
+option go_package = "team/v1;teamv1";
+
+message TeamMember {
+  user.v1.UserRef user = 1;
+  TeamMemberRole role = 2;
+}
+
+message Team {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  TeamStatus status = 4;
+  repeated TeamMember members = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package team.v1;
+
+option go_package = "team/v1;teamv1";
+
+enum TeamStatus {
+  TEAM_STATUS_UNSPECIFIED = 0;
+  TEAM_STATUS_ACTIVE = 1;
+  TEAM_STATUS_ARCHIVED = 2;
+}
+
+enum TeamMemberRole {
+  TEAM_MEMBER_ROLE_UNSPECIFIED = 0;
+  TEAM_MEMBER_ROLE_OWNER = 1;
+  TEAM_MEMBER_ROLE_MEMBER = 2;
+}

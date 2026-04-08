@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package team.v1;
+
+import "team/v1/enums.proto";
+import "team/v1/models.proto";
+
+option go_package = "team/v1;teamv1";
+
+service TeamService {
+  rpc CreateTeam(CreateTeamRequest) returns (CreateTeamResponse);
+  rpc GetTeam(GetTeamRequest) returns (GetTeamResponse);
+  rpc UpdateTeam(UpdateTeamRequest) returns (UpdateTeamResponse);
+  rpc DeleteTeam(DeleteTeamRequest) returns (DeleteTeamResponse);
+  rpc ListTeams(ListTeamsRequest) returns (ListTeamsResponse);
+  rpc AddTeamMember(AddTeamMemberRequest) returns (AddTeamMemberResponse);
+  rpc RemoveTeamMember(RemoveTeamMemberRequest) returns (RemoveTeamMemberResponse);
+}
+
+message CreateTeamRequest {
+  string name = 1;
+  string description = 2;
+}
+
+message CreateTeamResponse {
+  Team team = 1;
+}
+
+message GetTeamRequest {
+  string id = 1;
+}
+
+message GetTeamResponse {
+  Team team = 1;
+}
+
+message UpdateTeamRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message UpdateTeamResponse {
+  Team team = 1;
+}
+
+message DeleteTeamRequest {
+  string id = 1;
+}
+
+message DeleteTeamResponse {}
+
+message ListTeamsRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message ListTeamsResponse {
+  repeated Team teams = 1;
+  string next_page_token = 2;
+}
+
+message AddTeamMemberRequest {
+  string team_id = 1;
+  string user_id = 2;
+  TeamMemberRole role = 3;
+}
+
+message AddTeamMemberResponse {
+  TeamMember member = 1;
+}
+
+message RemoveTeamMemberRequest {
+  string team_id = 1;
+  string user_id = 2;
+}
+
+message RemoveTeamMemberResponse {}
