@@ -1,0 +1,14 @@
+version: v2
+modules:
+  - path: protos
+
+plugins:
+  - plugin: request-lint-plugin
+
+lint:
+  use:
+    - REPEATED_FIELD_VALIDATION
+
+breaking:
+  use:
+    - FILE
