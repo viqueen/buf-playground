@@ -6,5 +6,4 @@ option go_package = "user/v1;userV1";
 
 message UserRef {
   string id = 1;
-  string display_name = 2;
 }

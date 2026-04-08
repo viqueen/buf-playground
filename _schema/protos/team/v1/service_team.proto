@@ -4,6 +4,7 @@ package team.v1;
 
 import "team/v1/enums.proto";
 import "team/v1/models.proto";
+import "user/v1/refs.proto";
 
 option go_package = "team/v1;teamV1";
 
@@ -14,6 +15,7 @@ service TeamService {
   rpc DeleteTeam(DeleteTeamRequest) returns (DeleteTeamResponse);
   rpc ListTeams(ListTeamsRequest) returns (ListTeamsResponse);
   rpc AddTeamMember(AddTeamMemberRequest) returns (AddTeamMemberResponse);
+  rpc AddTeamMembers(AddTeamMembersRequest) returns (AddTeamMembersResponse);
   rpc RemoveTeamMember(RemoveTeamMemberRequest) returns (RemoveTeamMemberResponse);
 }
 
@@ -62,7 +64,7 @@ message ListTeamsResponse {
 
 message AddTeamMemberRequest {
   string team_id = 1;
-  string user_id = 2;
+  user.v1.UserRef user = 2;
   TeamMemberRole role = 3;
 }
 
@@ -70,9 +72,23 @@ message AddTeamMemberResponse {
   TeamMember member = 1;
 }
 
+message TeamMemberSpec {
+  user.v1.UserRef user = 1;
+  TeamMemberRole role = 2;
+}
+
+message AddTeamMembersRequest {
+  string team_id = 1;
+  repeated TeamMemberSpec members = 2;
+}
+
+message AddTeamMembersResponse {
+  repeated TeamMember members = 1;
+}
+
 message RemoveTeamMemberRequest {
   string team_id = 1;
-  string user_id = 2;
+  user.v1.UserRef user = 2;
 }
 
 message RemoveTeamMemberResponse {}
