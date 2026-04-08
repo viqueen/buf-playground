@@ -4,7 +4,7 @@ package user.v1;
 
 import "user/v1/models.proto";
 
-option go_package = "user/v1;userv1";
+option go_package = "user/v1;userV1";
 
 service UserService {
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);

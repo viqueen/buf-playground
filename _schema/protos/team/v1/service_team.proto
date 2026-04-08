@@ -5,7 +5,7 @@ package team.v1;
 import "team/v1/enums.proto";
 import "team/v1/models.proto";
 
-option go_package = "team/v1;teamv1";
+option go_package = "team/v1;teamV1";
 
 service TeamService {
   rpc CreateTeam(CreateTeamRequest) returns (CreateTeamResponse);

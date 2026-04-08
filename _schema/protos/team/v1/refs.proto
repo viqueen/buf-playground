@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package team.v1;
 
-option go_package = "team/v1;teamv1";
+option go_package = "team/v1;teamV1";
 
 message TeamRef {
   string id = 1;

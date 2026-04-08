@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 import "team/v1/enums.proto";
 import "user/v1/refs.proto";
 
-option go_package = "team/v1;teamv1";
+option go_package = "team/v1;teamV1";
 
 message TeamMember {
   user.v1.UserRef user = 1;
