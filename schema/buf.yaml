@@ -4,10 +4,13 @@ modules:
 
 plugins:
   - plugin: request-lint-plugin
+  - plugin: api-lint-plugin
 
 lint:
   use:
     - REPEATED_FIELD_VALIDATION
+    - FILE_NAME_CONVENTION
+    - UPDATE_REQUEST_FIELD_MASK
 
 breaking:
   use:

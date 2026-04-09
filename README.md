@@ -63,7 +63,14 @@ Binaries are output to `plugin/dist/` and automatically available on `PATH` via 
 
 | Rule ID | Default | Description |
 |---|---|---|
-| `REPEATED_FIELD_VALIDATION` | yes | Repeated fields in request messages must have a `max_items` constraint to prevent unbounded input attacks |
+| `REPEATED_FIELD_VALIDATION` | yes | Repeated fields in request messages (including nested messages) must have a `max_items` constraint to prevent unbounded input attacks |
+
+#### `api-lint-plugin`
+
+| Rule ID | Default | Description |
+|---|---|---|
+| `FILE_NAME_CONVENTION` | yes | Proto files must be named `enums.proto`, `models.proto`, `refs.proto`, or `service_<name>.proto` |
+| `UPDATE_REQUEST_FIELD_MASK` | yes | `UpdateXxxRequest` messages must have a `google.protobuf.FieldMask update_mask` field to support partial updates |
 
 ## Schema
 
