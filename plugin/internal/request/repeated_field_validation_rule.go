@@ -37,7 +37,8 @@ func handleRepeatedFieldValidation(
 			if !strings.HasSuffix(string(message.Name()), "Request") {
 				continue
 			}
-			checkRepeatedFields(responseWriter, message)
+			visited := make(map[protoreflect.FullName]bool)
+			checkRepeatedFields(responseWriter, message, visited)
 		}
 	}
 	return nil
@@ -46,22 +47,29 @@ func handleRepeatedFieldValidation(
 func checkRepeatedFields(
 	responseWriter check.ResponseWriter,
 	message protoreflect.MessageDescriptor,
+	visited map[protoreflect.FullName]bool,
 ) {
+	if visited[message.FullName()] {
+		return
+	}
+	visited[message.FullName()] = true
+
 	fields := message.Fields()
 	for i := range fields.Len() {
 		field := fields.Get(i)
-		if !field.IsList() {
-			continue
-		}
-		if !hasMaxItemsConstraint(field) {
-			responseWriter.AddAnnotation(
-				check.WithDescriptor(field),
-				check.WithMessagef(
-					"repeated field %q in request message %q must have a max_items constraint to prevent unbounded input attacks",
-					field.Name(),
-					message.Name(),
-				),
-			)
+		if field.IsList() {
+			if !hasMaxItemsConstraint(field) {
+				responseWriter.AddAnnotation(
+					check.WithDescriptor(field),
+					check.WithMessagef(
+						"repeated field %q in message %q must have a max_items constraint to prevent unbounded input attacks",
+						field.Name(),
+						message.Name(),
+					),
+				)
+			}
+		} else if field.Kind() == protoreflect.MessageKind || field.Kind() == protoreflect.GroupKind {
+			checkRepeatedFields(responseWriter, field.Message(), visited)
 		}
 	}
 }
