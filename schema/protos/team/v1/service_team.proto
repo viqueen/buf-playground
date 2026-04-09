@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package team.v1;
 
+import "google/protobuf/field_mask.proto";
 import "team/v1/enums.proto";
 import "team/v1/models.proto";
 import "user/v1/refs.proto";
@@ -36,10 +37,16 @@ message GetTeamResponse {
   Team team = 1;
 }
 
+message TeamPatch {
+  string name = 1;
+  string description = 2;
+  repeated TeamMemberSpec members = 3;
+}
+
 message UpdateTeamRequest {
   string id = 1;
-  string name = 2;
-  string description = 3;
+  TeamPatch patch = 2;
+  google.protobuf.FieldMask update_mask = 3;
 }
 
 message UpdateTeamResponse {

@@ -13,7 +13,7 @@ A playground for experimenting with [Buf](https://buf.build) tooling, including 
 │   ├── internal/
 │   │   └── request/                # Lint rule implementations
 │   └── dist/                       # Compiled plugin binaries
-└── _schema/        # Protobuf schema workspace
+└── schema/         # Protobuf schema workspace
     └── protos/
         ├── user/v1/                # User API
         │   ├── enums.proto
@@ -54,12 +54,20 @@ Binaries are output to `plugin/dist/` and automatically available on `PATH` via 
 
 | Plugin | Description |
 |---|---|
-| `request-lint-plugin` | Enforces lint rules on request messages (e.g. `REPEATED_FIELD_VALIDATION`) |
+| `request-lint-plugin` | Enforces lint rules on request messages |
 | `api-lint-plugin` | Enforces API-level lint rules |
+
+### Lint rules
+
+#### `request-lint-plugin`
+
+| Rule ID | Default | Description |
+|---|---|---|
+| `REPEATED_FIELD_VALIDATION` | yes | Repeated fields in request messages must have a `max_items` constraint to prevent unbounded input attacks |
 
 ## Schema
 
-The `_schema` workspace defines protobuf APIs for two domains:
+The `schema` workspace defines protobuf APIs for two domains:
 
 - **user.v1** — `UserService` with Create, Get, Update, Delete, List operations
 - **team.v1** — `TeamService` with Create, Get, Update, Delete, List operations, plus `AddTeamMember`, `AddTeamMembers`, and `RemoveTeamMember`
@@ -69,6 +77,6 @@ Cross-domain references use ref types (e.g. `user.v1.UserRef`) rather than plain
 ### Lint
 
 ```bash
-cd _schema
+cd schema
 mise run lint
 ```
